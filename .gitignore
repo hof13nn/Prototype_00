@@ -1,3 +1,56 @@
+# Add your file or directory
+# Especially for this project
+#StarterContent 
+
+
+# https://github.com/github/gitignore or https://www.toptal.com/developers/gitignore
+
+# Created by https://www.toptal.com/developers/gitignore/api/c++
+# Edit at https://www.toptal.com/developers/gitignore?templates=c++
+
+### C++ ###
+# Prerequisites
+*.d
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# End of https://www.toptal.com/developers/gitignore/api/c++
+
+
+
+
+# Created by https://www.toptal.com/developers/gitignore/api/unrealengine
+# Edit at https://www.toptal.com/developers/gitignore?templates=unrealengine
+
+### UnrealEngine ###
 # Visual Studio 2015 user specific files
 .vs/
 
@@ -47,7 +100,7 @@ SourceArt/**/*.tga
 
 # Binary Files
 Binaries/*
-Plugins/**/Binaries/*
+Plugins/*/Binaries/*
 
 # Builds
 Build/*
@@ -68,7 +121,33 @@ Saved/*
 
 # Compiled source files for the engine to use
 Intermediate/*
-Plugins/**/Intermediate/*
+Plugins/*/Intermediate/*
 
 # Cache files for the editor to use
 DerivedDataCache/*
+
+### UnrealEngine Patch ###
+# Don't ignore icon and splash images for mobile app
+!Build/IOS/Resources/
+Build/IOS/Resources/*
+!Build/IOS/Resources/Graphics/
+Build/IOS/Resources/Graphics/*
+!Build/IOS/Resources/Graphics/*.png
+!Build/Android/res/
+Build/Android/res/*
+!Build/Android/res/*/
+Build/Android/res/*/*
+!Build/Android/res/*/*.png
+# Ignore plugins binaries on deep subfolders
+Plugins/**/Binaries/*
+Plugins/**/Intermediate/*
+
+# End of https://www.toptal.com/developers/gitignore/api/unrealengine
+
+
+# IDE additionally 
+*.idea*
+.vscode
+.vsconfig
+*.opendb
+Developer

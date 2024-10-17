@@ -151,3 +151,7 @@ Plugins/**/Intermediate/*
 .vsconfig
 *.opendb
 Developer
+
+# Ignore custom folders
+
+/Content/Prototype_00/Assets

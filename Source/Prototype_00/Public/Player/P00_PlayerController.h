@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "P00_PlayerController.generated.h"
 
+class UWP00_PlayerHUD;
 class UP00_InputComponent;
 
 struct FInputActionValue;
@@ -23,6 +24,7 @@ public:
 protected:
 	virtual void OnPossess(APawn* InPawn) override;
 	virtual void BeginPlay() override;
+	
 private:
 	void SetupComponents();
 
@@ -35,4 +37,8 @@ public:
 private:
 	UPROPERTY(VisibleAnywhere)
 	UP00_InputComponent* InputHandlerComponent;
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UWP00_PlayerHUD> PlayerHUDClass;
+	UPROPERTY()
+	UWP00_PlayerHUD* PlayerHUDPtr;
 };

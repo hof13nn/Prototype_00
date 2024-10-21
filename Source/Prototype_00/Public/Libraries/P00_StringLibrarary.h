@@ -16,6 +16,7 @@ public:
 class PROTOTYPE_00_API FSocketLibrary
 {
 public:
+	inline static const FString PlayerLightSocket = TEXT("LightSocket");
 };
 
 
@@ -39,4 +40,5 @@ public:
 class PROTOTYPE_00_API FActionNamesLibrary
 {
 public:
+	inline static const FString A_Cleanse = TEXT("Cleanse");
 };

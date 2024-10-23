@@ -64,8 +64,6 @@ void UP00_Action_Cleanse::ExecuteCleanse(AP00_PlayerCharacter* Instigator)
 	
 	if(GetWorld() -> OverlapMultiByObjectType(OverlapResultsArr, Instigator -> GetActorLocation(), FQuat::Identity, QueryParams, FCollisionShape::MakeSphere(TraceRadius)))
 	{
-		//DrawDebugSphere(GetWorld(), Instigator -> GetActorLocation(), TraceRadius, 32.f, bIsHit ? FColor::Green : FColor::Red, false, 2.f);
-		
 		TArray<AP00_AICharacter*> MinionsArr;
 		
 		for (FOverlapResult HitResult : OverlapResultsArr)

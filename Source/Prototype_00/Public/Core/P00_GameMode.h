@@ -13,4 +13,7 @@ UCLASS()
 class PROTOTYPE_00_API AP00_GameMode : public AGameMode
 {
 	GENERATED_BODY()
+	
+protected:
+	virtual void StartPlay() override;
 };

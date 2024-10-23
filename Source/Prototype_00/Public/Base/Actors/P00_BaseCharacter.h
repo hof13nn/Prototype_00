@@ -15,6 +15,7 @@ class PROTOTYPE_00_API AP00_BaseCharacter : public ACharacter
 
 public:
 	AP00_BaseCharacter();
+	UFUNCTION(BlueprintCallable)
 	UP00_ActionHandlerComponent* GetActionComponent() const;
 protected:
 	virtual void BeginPlay() override;

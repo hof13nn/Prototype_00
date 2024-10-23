@@ -33,4 +33,6 @@ private:
 	UStaticMeshComponent* MeshComponent;
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* ParticleSystemComponent;
+	UPROPERTY(VisibleAnywhere)
+	UDecalComponent* DecalComponent;
 };

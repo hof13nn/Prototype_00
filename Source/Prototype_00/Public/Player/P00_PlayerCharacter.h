@@ -8,6 +8,7 @@
 #include "WP00_LightProgressBar.h"
 #include "P00_PlayerCharacter.generated.h"
 
+class UWP00_DebuffWidget;
 class UWP00_KeyHolder;
 class UP00_ActionHandlerComponent;
 class IP00_Interactable;
@@ -29,14 +30,18 @@ public:
 	void InitInput(AP00_PlayerController* PlayerController);
 	void SpawnLightActor(UWP00_LightProgressBar* LightProgressBar);
 	void SetKeyHolder(UWP00_KeyHolder* KeyHolder);
+	void SetDrainLightWidget(UWP00_DebuffWidget* DebuffWidget);
+	UFUNCTION(BlueprintCallable)
 	bool ResetLightToMax();
 	bool IncreaseLight(const float& Amount);
-	void ReduceLight(const float& Amount);
+	void ReduceLight(const float& Amount, AActor* InstigatorActor);
 	bool AddKey(const FGameplayTag& Tag);
-	
+	void RestLightTimers();
+	void SetDrainLightWidgetVisibility(const bool& Value);
 	UFUNCTION(BlueprintCallable)
 	bool GetIsAlive() const;
-
+	bool GetIsProtected() const;
+	
 protected:
 	virtual void PostInitializeComponents() override;
 	
@@ -44,13 +49,14 @@ private:
 	void SetupCameraComponent();
 	void SetupComponents();
 	void OnLightExhausted();
+	void RequestRespawn(AP00_PlayerController* PlayerController);
 	
 private:
 	void ExecutePlayerMove(const FInputActionValue& InputActionValue);
 	void ExecutePlayerTurn(const FInputActionValue& InputActionValue);
 	void ExecutePlayerJump(const FInputActionValue& InputActionValue);
 	void ExecutePlayerFire(const FInputActionValue& InputActionValue);
-
+	
 	UFUNCTION()
 	void OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
@@ -60,6 +66,8 @@ private:
 	USpringArmComponent* SpringArmComponent;
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
+	UPROPERTY(VisibleAnywhere)
+	UPawnNoiseEmitterComponent* NoiseEmitterComponent;
 	
 	UPROPERTY(VisibleAnywhere, Category = "Player | State")
 	bool bIsAlive;
@@ -69,6 +77,9 @@ private:
 	AP00_LightActor* LightActorPtr;
 	UPROPERTY()
 	UWP00_KeyHolder* KeyHolderPtr;
+	UPROPERTY()
+	UWP00_DebuffWidget* DrainLightWidgetPtr;
 	UPROPERTY(EditDefaultsOnly, Category= "Tags")
 	FGameplayTag MovementTag;
+	FTimerHandle Respawn_TimerHandle;
 };

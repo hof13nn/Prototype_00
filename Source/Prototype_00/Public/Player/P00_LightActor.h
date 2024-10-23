@@ -25,14 +25,17 @@ public:
 	bool ReduceLight(const float& Amount);
 	bool IncreaseLight(const float& Amount);
 	bool CanReset() const;
+	bool GetIsProtected() const;
+	void ResetTimers();
 	
 protected:
 	virtual void BeginPlay() override;
+	virtual void BeginDestroy() override;
 	
 private:
 	void SetupComponents();
 	void DecreaseLightRadiusOverTime();
-
+	void SetDrainLightTimer();
 	
 public:
 	FOnLightExhausted OnLightExhausted;
@@ -45,6 +48,8 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UWP00_LightProgressBar* LightProgressBarPtr;
 	UPROPERTY(EditAnywhere, Category= "Settings")
+	bool bIsProtected;
+	UPROPERTY(EditAnywhere, Category= "Settings")
 	float MaxRadius;
 	UPROPERTY(EditAnywhere, Category= "Settings")
 	float MinRadius;
@@ -55,8 +60,10 @@ private:
 	UPROPERTY(EditAnywhere, Category= "Settings")
 	float DecreaseRate;
 	UPROPERTY(EditAnywhere, Category= "Settings")
-	float InitTimerDelay;
+	float InitProtectionTime;
 	UPROPERTY(EditAnywhere, Category= "Settings")
-	float PickupTimerDelay;
-	FTimerHandle Light_TimerHandle;
+	float PickupProtectionTime;
+	FTimerHandle DrainLight_TimerHandle;
+	FTimerHandle ProtectionDelay_TimerHandle;
+	FTimerHandle Protection_TimerHandle;
 };

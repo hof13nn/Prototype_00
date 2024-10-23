@@ -8,6 +8,7 @@ bool UP00_ActionBase::CanStart(AActor* Instigator) const
 {
 	if (bIsActive)
 	{
+		UE_LOG(LogTemp, Error, TEXT("%s::CanStart: Action is already active"), *GetNameSafe(this));
 		return false;
 	}
 

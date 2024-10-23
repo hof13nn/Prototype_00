@@ -2,6 +2,7 @@
 
 #include "P00_PickupBase.h"
 #include "Components/BoxComponent.h"
+#include "Components/DecalComponent.h"
 #include "Particles/ParticleSystemComponent.h"
 
 AP00_PickupBase::AP00_PickupBase()
@@ -49,6 +50,16 @@ void AP00_PickupBase::SetupComponents()
 		if (ParticleSystemComponent)
 		{
 			ParticleSystemComponent -> SetupAttachment(MeshComponent);
+		}
+	}
+
+	if (!DecalComponent)
+	{
+		DecalComponent = CreateDefaultSubobject<UDecalComponent>(TEXT("Decal Component"));
+
+		if (DecalComponent)
+		{
+			DecalComponent -> SetupAttachment(RootComponent);
 		}
 	}
 }

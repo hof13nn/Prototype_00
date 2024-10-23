@@ -7,6 +7,7 @@
 #include "GameFramework/Actor.h"
 #include "P00_ExitDoor.generated.h"
 
+class USoundCue;
 class UBoxComponent;
 
 UCLASS()

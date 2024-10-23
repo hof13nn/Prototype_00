@@ -12,3 +12,8 @@ UWP00_KeyHolder* UWP00_PlayerHUD::GetKeyHolder() const
 {
 	return KeyHolder;
 }
+
+UWP00_DebuffWidget* UWP00_PlayerHUD::GetDebuffWidget() const
+{
+	return DebuffWidget;
+}

@@ -22,8 +22,6 @@ void UP00_ActionEffectBase::StartAction(AActor* Instigator)
 
 void UP00_ActionEffectBase::StopAction(AActor* Instigator)
 {
-	Super::StopAction(Instigator);
-
 	if (GetWorld() -> GetTimerManager().GetTimerRemaining(EffectRate_TimerHandle) < KINDA_SMALL_NUMBER)
 	{
 		ApplyPeriodicEffect(Instigator);

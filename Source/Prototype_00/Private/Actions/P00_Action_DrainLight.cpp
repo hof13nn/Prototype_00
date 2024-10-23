@@ -11,13 +11,30 @@ void UP00_Action_DrainLight::ApplyPeriodicEffect(AActor* Instigator)
 	{
 		if (AP00_PlayerCharacter* Player = Cast<AP00_PlayerCharacter>(AC -> GetOwner()))
 		{
-			UE_LOG(LogTemp, Warning, TEXT("%s: ApplyPeriodicEffect: Drain Light %s for %f"), *GetNameSafe(this), *GetNameSafe(AC -> GetOwner()), DrainAmount);
-			Player -> ReduceLight(DrainAmount);
+			if (Player -> GetIsProtected())
+			{
+				return;
+			}
+			
+			Player -> ReduceLight(DrainAmount, Instigator);
 
 			if (AP00_AICharacter* AI = Cast<AP00_AICharacter>(Instigator))
 			{
 				AI -> AddStoredLight(DrainAmount);
 			}
+		}
+	}
+}
+
+void UP00_Action_DrainLight::StopAction(AActor* Instigator)
+{
+	Super::StopAction(Instigator);
+
+	if (UP00_ActionHandlerComponent* AC = GetOwningComponent())
+	{
+		if (AP00_PlayerCharacter* Player = Cast<AP00_PlayerCharacter>(AC -> GetOwner()))
+		{
+			Player -> SetDrainLightWidgetVisibility(false);
 		}
 	}
 }

@@ -25,8 +25,6 @@ EBTNodeResult::Type UP00BTTask_DrainLight::ExecuteTask(UBehaviorTreeComponent& O
 					TargetActor -> GetActionComponent() -> AddAction(AIPawn, DrainLightAction);
 					AIPawn -> ExecuteDrainLightEffect();
 					BlackboardComponent -> SetValueAsBool("bIsDLApplied", true);
-
-					
 					return EBTNodeResult::Succeeded;
 				}
 			}

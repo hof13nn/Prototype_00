@@ -71,8 +71,7 @@ void AP00_ExitDoor::OnOverlap(UPrimitiveComponent* OverlappedComponent, AActor* 
 		{
 			GEngine -> AddOnScreenDebugMessage(-1, 2.f, FColor::Green, TEXT("You win"));
 			UGameplayStatics::PlaySoundAtLocation(this, UnlockedSound, GetActorLocation());
-			GetWorld() -> GetTimerManager().SetTimer(DoorOpen_TimerHandle, [&] {	UGameplayStatics::PlaySoundAtLocation(this, DoorOpenSound, GetActorLocation()); }, DoorOpenDelay, false);
-
+			//GetWorld() -> GetTimerManager().SetTimer(DoorOpen_TimerHandle, [&] {	UGameplayStatics::PlaySoundAtLocation(this, DoorOpenSound, GetActorLocation()); }, DoorOpenDelay, false);
 		}
 	}
 }

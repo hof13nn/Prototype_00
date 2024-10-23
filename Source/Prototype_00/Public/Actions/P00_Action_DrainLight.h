@@ -14,7 +14,7 @@ class PROTOTYPE_00_API UP00_Action_DrainLight : public UP00_ActionEffectBase
 	
 public:
 	virtual void ApplyPeriodicEffect(AActor* Instigator) override;
-
+	virtual void StopAction(AActor* Instigator) override;
 private:
 	UPROPERTY(EditDefaultsOnly, Category=Damage)
 	float DrainAmount;

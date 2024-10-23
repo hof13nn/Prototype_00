@@ -16,6 +16,7 @@ UP00_Action_Cleanse::UP00_Action_Cleanse()
 	ActionMontage = nullptr;
 	CleanseAnimDelay = 1.5f;
 	ParticleSystem = nullptr;
+	SpellSound = nullptr;
 	QueryChannel = ECC_WorldDynamic;
 	TraceRadius = 100.f;
 }
@@ -61,37 +62,36 @@ void UP00_Action_Cleanse::ExecuteCleanse(AP00_PlayerCharacter* Instigator)
 		UGameplayStatics::SpawnEmitterAtLocation(this, ParticleSystem, Instigator -> GetActorLocation());
 	}
 	
-	bool bIsHit = GetWorld() -> OverlapMultiByObjectType(OverlapResultsArr, Instigator -> GetActorLocation(), FQuat::Identity, QueryParams, FCollisionShape::MakeSphere(TraceRadius)); //SweepMultiByObjectType(HitResultsArr, Instigator -> GetActorLocation(), Instigator -> GetActorLocation(), FQuat::Identity, QueryParams, FCollisionShape::MakeSphere(TraceRadius));
-	DrawDebugSphere(GetWorld(), Instigator -> GetActorLocation(), TraceRadius, 32.f, bIsHit ? FColor::Green : FColor::Red, false, 2.f);
-
-	TArray<AP00_AICharacter*> MinionsArr;
-
-	if(!OverlapResultsArr.IsEmpty())
+	if(GetWorld() -> OverlapMultiByObjectType(OverlapResultsArr, Instigator -> GetActorLocation(), FQuat::Identity, QueryParams, FCollisionShape::MakeSphere(TraceRadius)))
 	{
+		//DrawDebugSphere(GetWorld(), Instigator -> GetActorLocation(), TraceRadius, 32.f, bIsHit ? FColor::Green : FColor::Red, false, 2.f);
+		
+		TArray<AP00_AICharacter*> MinionsArr;
+		
 		for (FOverlapResult HitResult : OverlapResultsArr)
 		{
 			if (HitResult.GetActor())
 			{
 				if (AP00_AICharacter* Minion = Cast<AP00_AICharacter>(HitResult.GetActor()))
 				{
-					UE_LOG(LogTemp, Warning, TEXT("ExecuteCleanse: %s"), *GetNameSafe(HitResult.GetActor()));
 					MinionsArr.AddUnique(Minion);
 				}
 			}
 		}
+
+		if (!MinionsArr.IsEmpty())
+		{
+			for (AP00_AICharacter* Minion : MinionsArr)
+			{
+				if (Minion)
+				{
+					Minion -> Cleanse(Instigator);
+				}
+			}
+
+			return;
+		}
 	}
 
-	if (!MinionsArr.IsEmpty())
-	{
-		for (auto Minion : MinionsArr)
-		{
-			if (Minion)
-			{
-				Minion -> Cleanse(Instigator);
-				return;
-			}
-		}	
-	}
-	
-	Instigator -> ReduceLight(LightCost);
+	Instigator -> ReduceLight(LightCost, Instigator);
 }

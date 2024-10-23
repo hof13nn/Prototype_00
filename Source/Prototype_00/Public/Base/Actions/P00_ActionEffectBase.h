@@ -14,6 +14,7 @@ class PROTOTYPE_00_API UP00_ActionEffectBase : public UP00_ActionBase
 {
 	GENERATED_BODY()
 
+public:
 	virtual void StartAction(AActor* Instigator) override;
 	virtual void StopAction(AActor* Instigator) override;
 	

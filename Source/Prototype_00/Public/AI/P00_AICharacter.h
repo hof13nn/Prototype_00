@@ -21,10 +21,11 @@ public:
 
 	void MakeSound();
 	void ExecuteDrainLightEffect();
+	void StopDrainLightEffect();
 	void DeactivateAI();
 	void Cleanse(AP00_PlayerCharacter* PlayerCharacter);
 	void AddStoredLight(const float& Value);
-	
+	FName GetDrainLightName() const;
 protected:
 	virtual void BeginPlay() override;
 	virtual void PostInitializeComponents() override;
@@ -34,6 +35,8 @@ protected:
 private:
 	UFUNCTION()
 	void OnSeePawn(APawn* Pawn);
+	UFUNCTION()
+	void OnHearPawn(APawn* InstigatorActor, const FVector& Location, float Volume);
 	
 private:
 	bool bIsAlive;
@@ -41,12 +44,16 @@ private:
 	UPawnSensingComponent* PawnSensingComponent;
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* ParticleSystemComponent;
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY(EditDefaultsOnly, Category= "Enemy | Pickup")
 	TSubclassOf<AP00_Pickup_LightEnergy> LightEnergyClass;
-	UPROPERTY(EditAnywhere, Category= "AI")
+	UPROPERTY(EditAnywhere, Category= "Enemy | Spell")
 	FName DrainLightName;
-	UPROPERTY(EditAnywhere, Category= "AI")
+	UPROPERTY(EditAnywhere, Category= "Enemy | Spell")
+	UAnimMontage* DrainLightAnim;
+	UPROPERTY(EditAnywhere, Category= "Enemy | Sound")
 	USoundCue* MinionSound;
 	UPROPERTY(VisibleAnywhere)
 	float StoredLight;
+
+	FTimerHandle DestroyAI_TimerHandle;
 };

@@ -24,21 +24,29 @@ public:
 	bool StopActionByName(AActor* Instigator, const FName& ActionName);
 	UP00_ActionBase* GetActionByName(AActor* Instigator, const FName& ActionName);
 	void AddTag(const FGameplayTag& Tag);
+	void AddKeyTag(const FGameplayTag& Tag);
+	void AddKeyTags(const FGameplayTagContainer& Tags);
 	void AddTags(const FGameplayTagContainer& Tags);
 	void RemoveTag(const FGameplayTag& Tag);
 	void RemoveTags(const FGameplayTagContainer& Tags);
+	UFUNCTION(BlueprintCallable)
+	bool HasKeyTag(const FGameplayTag& Tag) const;
+	UFUNCTION(BlueprintCallable)
+	bool HasKeyTags(const FGameplayTagContainer& Tags) const;
 	bool HasTag(const FGameplayTag& Tag) const;
 	bool HasTags(const FGameplayTagContainer& Tags) const;
-
+	FGameplayTagContainer GetKeyTags() const;
 protected:
 	virtual void OnRegister() override;
 	
 private:
-	UPROPERTY()
-	TArray<UP00_ActionBase*> ActionsArr;
+	UPROPERTY(VisibleAnywhere)
+	TMap<UP00_ActionBase*, AActor*> ActionsDic;
 	UPROPERTY(EditAnywhere, Category="Actions")
 	TArray<TSubclassOf<UP00_ActionBase>> ActionClassesArr;
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Tags", meta=(AllowPrivateAccess="true"))
 	FGameplayTagContainer ActiveGameplayTags;
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category="Tags", meta=(AllowPrivateAccess="true"))
+	FGameplayTagContainer KeyTags;
 
 };

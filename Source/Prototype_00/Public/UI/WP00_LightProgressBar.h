@@ -14,6 +14,7 @@ class PROTOTYPE_00_API UWP00_LightProgressBar : public UWP00_ProgressBar
 
 public:
 	void SetBarCooldownTimer(const float& Duration);
+	void SetBarCooldownValue(const float& Value);
 	
 private:
 	void UpdateLightDecreaseCooldownBarValue(const float& Value);
